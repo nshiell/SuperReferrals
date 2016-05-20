@@ -1,3 +1,4 @@
-app:
-    resource: "@AppBundle/Controller/"
+referrals:
+    resource: "@ReferralsBundle/Controller/"
     type:     annotation
+    prefix:   /
