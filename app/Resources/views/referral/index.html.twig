@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Referral list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Firstname</th>
+                <th>Surname</th>
+                <th>Dateofbirth</th>
+                <th>Email</th>
+                <th>Mobilephone</th>
+                <th>Address1</th>
+                <th>Address2</th>
+                <th>Address3</th>
+                <th>Postcode</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for referral in referrals %}
+            <tr>
+                <td><a href="{{ path('referral_show', { 'id': referral.id }) }}">{{ referral.id }}</a></td>
+                <td>{{ referral.title }}</td>
+                <td>{{ referral.firstName }}</td>
+                <td>{{ referral.surname }}</td>
+                <td>{% if referral.dateOfBirth %}{{ referral.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ referral.email }}</td>
+                <td>{{ referral.mobilePhone }}</td>
+                <td>{{ referral.address1 }}</td>
+                <td>{{ referral.address2 }}</td>
+                <td>{{ referral.address3 }}</td>
+                <td>{{ referral.postcode }}</td>
+                <td>{{ referral.status }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('referral_show', { 'id': referral.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('referral_edit', { 'id': referral.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('referral_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

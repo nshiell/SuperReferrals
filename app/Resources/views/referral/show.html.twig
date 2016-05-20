@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Referral</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ referral.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ referral.title }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ referral.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Surname</th>
+                <td>{{ referral.surname }}</td>
+            </tr>
+            <tr>
+                <th>Dateofbirth</th>
+                <td>{% if referral.dateOfBirth %}{{ referral.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ referral.email }}</td>
+            </tr>
+            <tr>
+                <th>Mobilephone</th>
+                <td>{{ referral.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>Address1</th>
+                <td>{{ referral.address1 }}</td>
+            </tr>
+            <tr>
+                <th>Address2</th>
+                <td>{{ referral.address2 }}</td>
+            </tr>
+            <tr>
+                <th>Address3</th>
+                <td>{{ referral.address3 }}</td>
+            </tr>
+            <tr>
+                <th>Postcode</th>
+                <td>{{ referral.postcode }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ referral.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('referral_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('referral_edit', { 'id': referral.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
