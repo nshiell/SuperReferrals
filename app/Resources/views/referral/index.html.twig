@@ -2,7 +2,11 @@
 
 {% block body %}
     <h1>Referral list</h1>
-
+    <ul>
+        {% for status in statuses %}
+            <li><a href="/{{ status }}">{{ status }}</a></li>
+        {% endfor %}
+    </ul>
     <table>
         <thead>
             <tr>

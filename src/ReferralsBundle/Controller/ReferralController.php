@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ReferralsBundle\Entity\Referral;
 use ReferralsBundle\Form\ReferralType;
+use ReferralsBundle\DBAL\Types\ReferralStatusType;
 
 /**
  * Referral controller.
@@ -19,16 +20,21 @@ class ReferralController extends Controller
      * Lists all Referral entities.
      *
      * @Route("/", name="referral_index")
+     * @Route("/{status}", name="referral_index1", requirements={"status"="referred|accepted|rejected"})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($status = null)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $referrals = $em->getRepository('ReferralsBundle:Referral')->findAll();
+        $referralRepo = $em->getRepository('ReferralsBundle:Referral');
+        $referrals = ($status)
+            ? $referralRepo->findByStatus($status)
+            : $referralRepo->findAll();
 
         return $this->render('referral/index.html.twig', array(
             'referrals' => $referrals,
+            'statuses'  => ReferralStatusType::getChoices()
         ));
     }
 
