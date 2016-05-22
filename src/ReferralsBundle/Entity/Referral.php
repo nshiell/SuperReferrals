@@ -4,6 +4,7 @@ namespace ReferralsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 use ReferralsBundle\DBAL\Types\ReferralStatusType;
 
 /**
@@ -14,6 +15,28 @@ use ReferralsBundle\DBAL\Types\ReferralStatusType;
  */
 class Referral
 {
+    public function __construct(array $data = null)
+    {
+        if ($data) {
+            $this->setData($data);
+        }
+    }
+
+    public function setData(array $data)
+    {
+        $this->setTitle($data['title']);
+        $this->setFirstName($data['firstName']);
+        $this->setSurname($data['surname']);
+        $this->setDateOfBirth($data['dateOfBirth']);
+        $this->setEmail($data['email']);
+        $this->setMobilePhone($data['mobilePhone']);
+        $this->setAddress1($data['address1']);
+        $this->setAddress2($data['address2']);
+        $this->setAddress3($data['address3']);
+        $this->setPostcode($data['postcode']);
+        $this->setStatus($data['status']);
+    }
+
     /**
      * @var int
      *
@@ -25,14 +48,14 @@ class Referral
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=50)
      */
     private $title;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="first_name", type="string", length=100)
      */
     private $firstName;
@@ -191,7 +214,7 @@ class Referral
      *
      * @return Referral
      */
-    public function setDateOfBirth($dateOfBirth)
+    public function setDateOfBirth(\DateTime $dateOfBirth)
     {
         $this->dateOfBirth = $dateOfBirth;
 
